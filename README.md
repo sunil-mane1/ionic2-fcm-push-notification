@@ -1,0 +1,1 @@
+ionic plugin add phonegap-plugin-push --variable SENDER_ID=<yoursenderidhere>
