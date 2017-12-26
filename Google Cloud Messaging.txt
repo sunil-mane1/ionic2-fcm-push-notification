@@ -1,0 +1,25 @@
+When the application server needs to push a message to the Android application, it sends the message via an HTTP POST to Google’s C2DM servers.
+
+The C2DM servers route the message to the device. If the device is not online, the message will be delivered once the device is available.
+
+C2DM messages are limited in size to 1024 bytes and are intended to inform the device about new data not to transfer it. 
+The typical workflow is that Googles C2DM servers notify the Android app that new data is available. 
+Afterwards the Android app fetches the data from a different server.
+
+Android devices maintain a connection to the Android Play server. C2DM uses this existing connections to the Google servers.
+
+
+How push notifications work
+
+With Android devices, all push notifications are sent through the same transport service – Google Cloud Messenger (GCM). 
+This allows many applications to receive notifications without requiring an open connection for each one.
+
+Before a device can receive a message, it registers with GCM and gets a token. 
+This token can then be used (along with a second key) to send notifications to your device.
+
+In the case of push notifications, however, it is the server initiating the data transfer.
+
+This is usually accomplished by maintaining a persistent TCP/IP connection—a connection that stays open indefinitely—between
+the server and the client. That might sound great, but if you have a popular app, maintaining thousands of persistent
+connections between your server and the devices of your users can be very expensive.
+
