@@ -5,10 +5,14 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { Push, PushObject, PushOptions } from '@ionic-native/push';
 
 import { HomePage } from '../pages/home/home';
+
+declare let cordova: any;
+
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
+  
   rootPage:any = HomePage;
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, public push: Push, public alertCtrl: AlertController) {
@@ -25,7 +29,7 @@ export class MyApp {
 
     const options: PushOptions = {
       android: {
-        senderID: '<----- FCM Sender ID ----->',
+        senderID: '79428182183',
         vibrate: true,
         sound: true
       },
@@ -46,10 +50,17 @@ export class MyApp {
 
       if(notification.additionalData.foreground) {
         let alert = this.alertCtrl.create({
-          title: 'New Push Notification',
+          title: notification.title,
           message: notification.message
         });
+        console.log(cordova.plugins.notification.local);
+        cordova.plugins.notification.local.schedule({
+          title: notification.title,
+          text: notification.message,
+          foreground: true
+      });
         alert.present();
+        
       }
 
     });

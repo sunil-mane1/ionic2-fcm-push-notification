@@ -13,6 +13,12 @@
     "sourceMap": true,
     "target": "es5"
   },
+  "angularCompilerOptions": {
+    "strictTemplates": true,
+    "preserveWhitespaces": true,
+    // ...
+    "disableTypeScriptVersionCheck": true
+  },
   "include": [
     "src/**/*.ts"
   ],
